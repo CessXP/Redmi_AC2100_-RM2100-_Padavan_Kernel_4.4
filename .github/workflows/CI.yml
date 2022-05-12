@@ -126,7 +126,7 @@ jobs:
       matrix:
         include:
           - build_variant: "mt7621"
-            targets: "MI-R4A"
+            targets: "RM2100"
     steps:
       - uses: actions/checkout@v2
       - name: Prepare environment
@@ -184,13 +184,13 @@ jobs:
           for m in $targets; do fakeroot ./build_firmware_ci $m; \
           if [ $? = 0 ]; then cp -f images/*.trx $images_dir/$m.trx; else exit 1; fi; \
           ./clear_tree_simple >/dev/null 2>&1; done
-      - name: Upload MI-R4A
-        id: upload-release-asset-MI-R4A
+      - name: Upload RM2100
+        id: upload-release-asset-RM2100
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: /opt/images/MI-R4A.trx
-          asset_name: MI-R4A_${{ env.build_date }}_${{ env.build_version }}.trx
+          asset_path: /opt/images/RM2100.trx
+          asset_name: RM2100_${{ env.build_date }}_${{ env.build_version }}.trx
           asset_content_type: application/bin
